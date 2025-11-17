@@ -36,6 +36,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <stdint.h>
+
 #ifdef FIXED_POINT
 #if defined(__aarch64__)
 static inline int32_t saturate_32bit_to_16bit(int32_t a) {
@@ -79,7 +81,7 @@ static inline int32_t saturate_32bit_to_16bit(int32_t a) {
 static inline int32_t inner_product_single(const int16_t *a, const int16_t *b, unsigned int len)
 {
     int32_t ret;
-    u_int32_t remainder = len % 16;
+    uint32_t remainder = len % 16;
     len = len - remainder;
 
     asm volatile ("	 cmp %w[len], #0\n"
@@ -134,7 +136,7 @@ static inline int32_t inner_product_single(const int16_t *a, const int16_t *b, u
 static inline int32_t inner_product_single(const int16_t *a, const int16_t *b, unsigned int len)
 {
     int32_t ret;
-    u_int32_t remainder = len % 16;
+    uint32_t remainder = len % 16;
     len = len - remainder;
 
     asm volatile ("	 cmp %[len], #0\n"
@@ -224,7 +226,7 @@ static inline int32_t saturate_float_to_16bit(float a) {
 static inline float inner_product_single(const float *a, const float *b, unsigned int len)
 {
     float ret;
-    u_int32_t remainder = len % 16;
+    uint32_t remainder = len % 16;
     len = len - remainder;
 
     asm volatile ("	 cmp %w[len], #0\n"
@@ -279,7 +281,7 @@ static inline float inner_product_single(const float *a, const float *b, unsigne
 static inline float inner_product_single(const float *a, const float *b, unsigned int len)
 {
     float ret;
-    u_int32_t remainder = len % 16;
+    uint32_t remainder = len % 16;
     len = len - remainder;
 
     asm volatile ("	 cmp %[len], #0\n"

@@ -1,19 +1,21 @@
 {
-  "name": "speex-resampler",
-  "version": "1.0.14",
-  "description": "An implementation of Speex audio resampler on NodeJS with N-API",
+  "name": "speex-resampler-napi",
+  "version": "4.0.0",
+  "description": "High-performance SpeexDSP resampler using N-API (revived from v1.0.14)",
+  "gypfile": true,
   "main": "src/index.js",
   "types": "src/index.d.ts",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "build": "cmake-js compile",
-    "build:debug": "cmake-js compile -D",
-    "deploy": "np --no-tests",
-    "test": "node src/test.js",
-    "install": "prebuild-install -r napi --target 3 || npm run build",
-    "build-binaries": "prebuild -r napi -t 3 --backend cmake-js --verbose",
-    "build-and-upload": "run-script-os",
-    "build-and-upload:default": "prebuild -r napi -t 3 --backend cmake-js --verbose -u $GITHUB_TOKEN",
-    "build-and-upload:win32": "prebuild -r napi -t 3 --backend cmake-js --verbose -u %GITHUB_TOKEN%"
+    "clean": "rimraf build dist",
+    "compile": "tsc --project tsconfig.json",
+    "native": "node-gyp rebuild",
+    "build": "npm run native && npm run compile",
+    "install": "npm run native",
+    "prepublishOnly": "npm run build",
+    "test": "npm run compile && node dist/test.js"
   },
   "author": "Guillaume Besson <guillaume@besson.co>",
   "repository": "https://github.com/geekuillaume/node-speex-resampler",
@@ -24,20 +26,10 @@
     "speex"
   ],
   "license": "MIT",
-  "dependencies": {
-    "bindings": "^1.5.0",
-    "prebuild-install": "^5.3.3"
-  },
   "devDependencies": {
-    "cmake-js": "^6.0.0",
-    "node-addon-api": "^2.0.0",
-    "np": "^6.2.1",
-    "prebuild": "^10.0.0",
-    "run-script-os": "^1.1.1"
-  },
-  "binary": {
-    "napi_versions": [
-      3
-    ]
+    "@types/node": "^24.10.1",
+    "node-addon-api": "^8.5.0",
+    "node-gyp": "^12.1.0",
+    "typescript": "^5.9.3"
   }
 }
