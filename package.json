@@ -1,5 +1,5 @@
 {
-  "name": "@libersys/speex-resampler-napi",
+  "name": "@libersys/speex-resampler",
   "version": "4.0.0",
   "description": "High-performance SpeexDSP resampler using N-API (revived from v1.0.14)",
   "gypfile": true,
