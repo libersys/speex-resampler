@@ -12,9 +12,10 @@
     "clean": "rimraf build dist",
     "compile": "tsc --project tsconfig.json",
     "native": "node-gyp rebuild",
-    "build": "npm run native && npm run compile",
-    "install": "npm run native",
+    "build": "node-gyp rebuild && tsc --project tsconfig.json",
+    "install": "node-gyp rebuild",
     "prepublishOnly": "npm run build",
+    "prepare": "npm run build",
     "test": "npm run compile && node dist/test.js"
   },
   "author": "Guillaume Besson <guillaume@besson.co>",
