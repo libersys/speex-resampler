@@ -1,6 +1,6 @@
 {
   "name": "@libersys/speex-resampler",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "High-performance SpeexDSP resampler using N-API (revived from v1.0.14)",
   "gypfile": true,
   "main": "dist/index.js",
